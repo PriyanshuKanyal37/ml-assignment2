@@ -67,7 +67,7 @@ preprocessing file. Multi-class metrics: Precision / Recall / F1 are **weighted*
 | **Overall, winner for this dataset** | **Logistic Regression**: highest Accuracy, AUC, F1 and MCC, plus it is fast and interpretable. SVM and Decision Tree are close behind; Naive Bayes is the poorest fit for this correlated, mixed-type data. |
 
 ## Streamlit app
-- **Live app:** _<paste Streamlit Community Cloud URL here>_
+- **Live app:** _<[paste Streamlit Community Cloud URL here](https://priyanshu-ml-assignment2.streamlit.app)>_
 - Features: CSV upload (test data), model selection dropdown, the 6 evaluation metrics, confusion matrix heat-map,
   classification report, row-level predictions, a side-by-side comparison tab and a sample `test_data.csv` download.
 - The app only **loads** the saved models from `model/`. It never retrains on the uploaded data.
