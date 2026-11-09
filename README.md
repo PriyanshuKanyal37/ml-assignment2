@@ -59,12 +59,12 @@ preprocessing file. Multi-class metrics: Precision / Recall / F1 are **weighted*
 
 | ML Model Name | Observation about model performance |
 |---|---|
-| Logistic Regression | Best on every metric (Acc 0.773, AUC 0.903, MCC 0.623). The strongest predictors (approved units and grades in semesters 1 and 2) relate to the outcome almost monotonically, so after scaling a linear decision boundary separates Dropout from Graduate well. Its weak spot, shared by all models, is the minority *Enrolled* class, which sits between the other two. |
-| Decision Tree | A close second on accuracy (0.764) and MCC (0.608). It learns clear rules such as "few 2nd-semester approved units → Dropout". Limiting depth to 8 and leaves to ≥10 samples stopped overfitting, but its probability estimates are coarse (one value per leaf), so its AUC (0.872) trails LR and SVM. |
-| KNN | Mid-to-low (Acc 0.704, MCC 0.506). Many features are integer codes (course, occupation, application mode) whose numeric distance means nothing, so in 36 dimensions the nearest neighbours are noisy. It also leans toward the majority *Graduate* class, so it has the lowest recall on *Enrolled*. |
-| Naive Bayes | Weakest (Acc 0.677, MCC 0.459). Its independence assumption is badly broken: semester-1 and semester-2 features are highly correlated, so the same evidence is counted twice. The categorical codes and count features are also far from Gaussian. It is fast and gives a useful AUC baseline (0.804). |
-| Support Vector Machine | Second-best AUC (0.895) and third on accuracy (0.749). The RBF kernel ranks the classes well, but with default C and gamma (untuned) it does not beat the simpler linear model here. It is also the slowest model to train and predict, because `probability=True` adds internal cross-validation. |
-| **Overall, winner for this dataset** | **Logistic Regression**: highest Accuracy, AUC, F1 and MCC, plus it is fast and interpretable. SVM and Decision Tree are close behind; Naive Bayes is the poorest fit for this correlated, mixed-type data. |
+| Logistic Regression | Accuracy 0.773, MCC 0.623; rank 1 of 5. Its straight-line boundary works well because more passed subjects and higher marks generally mean a better chance of graduating. Its weak point is that it identifies only 38% of Enrolled students. |
+| Decision Tree | Accuracy 0.764, MCC 0.608; rank 2 of 5. It learns if-then rules, such as predicting Dropout when very few semester-2 subjects were passed. Its AUC is lower at 0.872, and deeper trees could overfit; this tree is limited to depth 8. |
+| KNN | Accuracy 0.704, MCC 0.506; rank 4 of 5. It compares students by distance, but numeric codes such as course and job IDs do not represent meaningful distances. It predicts Graduate too often and identifies only 23% of Enrolled students. |
+| Naive Bayes | Accuracy 0.677, MCC 0.459; rank 5 of 5. It assumes features are independent, even though semester-1 and semester-2 results are closely related. It is the fastest and simplest model, but its independence assumption is a poor fit here. |
+| Support Vector Machine | Accuracy 0.749, MCC 0.582; rank 3 of 5, with the second-best AUC at 0.895. It separates classes well, but was used with default settings rather than tuned settings. Its weak point is speed: it was the slowest model. |
+| **Overall, winner for this dataset** | **Logistic Regression** is the winner: it performs best across all six metrics and is also simple and fast. |
 
 ## Streamlit app
 - **Live app:** https://priyanshu-ml-assignment2.streamlit.app
