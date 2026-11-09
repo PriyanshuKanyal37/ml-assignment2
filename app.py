@@ -43,7 +43,9 @@ tab_eval, tab_compare = st.tabs(["Evaluate on uploaded data", "Comparison of all
 with tab_compare:
     st.subheader("Hold-out test metrics (20% stratified split)")
     st.dataframe(pd.read_csv(MODEL_DIR / "metrics.csv").set_index("ML Model Name")
-                 .style.highlight_max(axis=0, color="#c8e6c9"), width="stretch")
+                 .style.format("{:.4f}")
+                 .highlight_max(axis=0, props="background-color:#2e7d32;color:white;font-weight:bold"),
+                 width="stretch")
 
 with tab_eval:
     if upload is None:
